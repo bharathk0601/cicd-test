@@ -35,7 +35,7 @@ jobs:
         # Loop through each commit and validate the message
         for commit in $commits; do
           commit_message=$(git log -1 --pretty=%B $commit)
-          echo "Commit $$commit_message does not contain a JIRA IDDDDDD."
+          echo "Commit $commit_message does not contain a JIRA IDDDDDD."
         done
         
         # Fail the job if any commit message is invalid
