@@ -16,9 +16,27 @@ jobs:
     - name: Checkout Code
       uses: actions/checkout@v3
 
-    - name: Validate commit
+    - name: Validate commit messages
       run: |
+        # Get the list of commits in the pull request
         commits=$(git log --format="%H" ${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }})
+        
+        # Initialize a flag to track validation status
+        valid_commits=true
+        
+        # Loop through each commit and validate the message
         for commit in $commits; do
-          echo "Commit $commit does not contain a JIRA ID."
+          echo "Commit $commit does not contain a JIRA IDDDD."
+          commit_message=$(git log -1 --pretty=%B $commit)
+          
+          # Check if the commit message contains a JIRA ID (example: JIRA-123)
+          if ! echo "$commit_message" | grep -E "JIRA-[0-9]+"; then
+            echo "Commit $commit does not contain a JIRA ID."
+            valid_commits=false
+          fi
         done
+        
+        # Fail the job if any commit message is invalid
+        if [ "$valid_commits" = false ]; then
+          exit 1
+        fi
