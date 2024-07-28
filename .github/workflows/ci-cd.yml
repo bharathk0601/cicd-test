@@ -40,7 +40,6 @@ jobs:
 
     - name: Check commit message format
       run: |
-        # Check if the latest commit message matches the Jira ID pattern
         COMMIT_MESSAGE=$(git log -1 --pretty=%B)
         JIRA_PATTERN='^[A-Z]+-\d+'
         if ! echo "$COMMIT_MESSAGE" | grep -qE "$JIRA_PATTERN"; then
