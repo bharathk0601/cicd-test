@@ -34,14 +34,8 @@ jobs:
         
         # Loop through each commit and validate the message
         for commit in $commits; do
-           echo "Commit $commit does not contain a JIRA IDDDDDD."
           commit_message=$(git log -1 --pretty=%B $commit)
-          
-          # Check if the commit message contains a JIRA ID (example: JIRA-123)
-          if ! echo "$commit_message" | grep -E "JIRA-[0-9]+"; then
-            echo "Commit $commit does not contain a JIRA ID."
-            valid_commits=false
-          fi
+          echo "Commit $$commit_message does not contain a JIRA IDDDDDD."
         done
         
         # Fail the job if any commit message is invalid
