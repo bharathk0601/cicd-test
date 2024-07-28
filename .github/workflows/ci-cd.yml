@@ -16,5 +16,8 @@ jobs:
     - name: Checkout Code
       uses: actions/checkout@v3
 
-    - name: Print Hello World
-      run: echo "Hello, World!!!!"
+    - name: Validate commit
+      run: |
+        commits=$(git log --format="%H" ${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }})
+        for commit in $commits; do
+          echo "Commit $commit does not contain a JIRA ID."
