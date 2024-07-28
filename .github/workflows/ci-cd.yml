@@ -21,3 +21,4 @@ jobs:
         commits=$(git log --format="%H" ${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }})
         for commit in $commits; do
           echo "Commit $commit does not contain a JIRA ID."
+        done
